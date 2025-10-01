@@ -18,6 +18,16 @@ if (File.Exists(marioFileName))
   logger.Info($"File deserialized {marioFileName}");
 }
 
+// deserialize dk json from file into List<DonkeyKong>
+string donkeyKongFileName = "dk.json";
+List<DonkeyKong> donkeyKongs = [];
+// check if file exists
+if (File.Exists(donkeyKongFileName))
+{
+  donkeyKongs = JsonSerializer.Deserialize<List<DonkeyKong>>(File.ReadAllText(donkeyKongFileName))!;
+  logger.Info($"File deserialized {donkeyKongFileName}");
+}
+
 do
 {
   // display choices to user
@@ -97,14 +107,14 @@ do
       logger.Info("Invalid choice");
     }
   }
-      else if (string.IsNullOrEmpty(choice))
-    {
-      break;
-    }
-    else
-    {
-      logger.Info("Invalid choice");
-    }  
+  else if (string.IsNullOrEmpty(choice))
+  {
+    break;
+  }
+  else
+  {
+    logger.Info("Invalid choice");
+  }
 } while (true);
 
 logger.Info("Program ended");

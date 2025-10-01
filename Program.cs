@@ -21,65 +21,90 @@ if (File.Exists(marioFileName))
 do
 {
   // display choices to user
-  Console.WriteLine("1) Display Mario Characters");
-  Console.WriteLine("2) Add Mario Character");
-  Console.WriteLine("3) Remove Mario Character");
+  Console.WriteLine("1) Interact With Mario Characters");
+  Console.WriteLine("2) Interact With Donkey Kong Characters");
+  Console.WriteLine("3) Interact With Street Fighter II Characters");
   Console.WriteLine("Enter to quit");
 
   // input selection
   string? choice = Console.ReadLine();
   logger.Info("User choice: {Choice}", choice);
 
-    if (choice == "1")
+  if (choice == "1")
+  {
+    // display choices to user
+    Console.WriteLine("1) Display Mario Characters");
+    Console.WriteLine("2) Add Mario Character");
+    Console.WriteLine("3) Remove Mario Character");
+    Console.WriteLine("Enter to quit");
+
+    // input selection
+    string? choiceM = Console.ReadLine();
+    logger.Info("User choice: {Choice}", choiceM);
+
+    if (choiceM == "1")
     {
-        // Display Mario Characters
-        foreach (var c in marios)
-        {
-            Console.WriteLine(c.Display());
-        }
+      // Display Mario Characters
+      foreach (var c in marios)
+      {
+        Console.WriteLine(c.Display());
+      }
     }
-    else if (choice == "2")
+    else if (choiceM == "2")
     {
-        // Add Mario Character
-        // Generate unique Id
-        Mario mario = new()
-        {
-            Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
-        };
-        InputCharacter(mario);
-        // Add Character
-        marios.Add(mario);
-        File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
-        logger.Info($"Character added: {mario.Name}");
+      // Add Mario Character
+      // Generate unique Id
+      Mario mario = new()
+      {
+        Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
+      };
+      InputCharacter(mario);
+      // Add Character
+      marios.Add(mario);
+      File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+      logger.Info($"Character added: {mario.Name}");
     }
-    else if (choice == "3")
+    else if (choiceM == "3")
     {
-        // Remove Mario Character
-        Console.WriteLine("Enter the Id of the character to remove:");
-        if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+      // Remove Mario Character
+      Console.WriteLine("Enter the Id of the character to remove:");
+      if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+      {
+        Mario? character = marios.FirstOrDefault(c => c.Id == Id);
+        if (character == null)
         {
-            Mario? character = marios.FirstOrDefault(c => c.Id == Id);
-            if (character == null)
-            {
-            logger.Error($"Character Id {Id} not found");
-            } else {
-            marios.Remove(character);
-            // serialize list<marioCharacter> into json file
-            File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
-            logger.Info($"Character Id {Id} removed");
-            }
-        } else
-        {
-            logger.Error("Invalid Id");
+          logger.Error($"Character Id {Id} not found");
         }
-    } else if (string.IsNullOrEmpty(choice))
+        else
+        {
+          marios.Remove(character);
+          // serialize list<marioCharacter> into json file
+          File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+          logger.Info($"Character Id {Id} removed");
+        }
+      }
+      else
+      {
+        logger.Error("Invalid Id");
+      }
+    }
+    else if (string.IsNullOrEmpty(choiceM))
     {
-        break;
+      break;
     }
     else
     {
-        logger.Info("Invalid choice");
+      logger.Info("Invalid choice");
     }
+  }
+      else if (string.IsNullOrEmpty(choice))
+    {
+      break;
+    }
+    else
+    {
+      logger.Info("Invalid choice");
+    }  
 } while (true);
 
 logger.Info("Program ended");

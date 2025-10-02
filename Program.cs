@@ -165,7 +165,7 @@ do
         else
         {
           donkeyKongs.Remove(character);
-          // serialize list<marioCharacter> into json file
+          // serialize list<DonketKongCharacter> into json file
           File.WriteAllText(donkeyKongFileName, JsonSerializer.Serialize(donkeyKongs));
           logger.Info($"Character Id {Id} removed");
         }
@@ -186,53 +186,53 @@ do
   } else if (choice == "3")
     {
     // display choices to user
-    Console.WriteLine("1) Display Donkey Kong Characters");
-    Console.WriteLine("2) Add Donkey Kong Character");
-    Console.WriteLine("3) Remove Donkey Kong Character");
+    Console.WriteLine("1) Display Street Fighter II Characters");
+    Console.WriteLine("2) Add Street Fighter II  Character");
+    Console.WriteLine("3) Remove Street Fighter II Character");
     Console.WriteLine("Enter to quit");
 
     // input selection
-    string? choiceD = Console.ReadLine();
-    logger.Info("User choice: {Choice}", choiceD);
+    string? choiceS = Console.ReadLine();
+    logger.Info("User choice: {Choice}", choiceS);
 
-    if (choiceD == "1")
+    if (choiceS == "1")
     {
-      // Display Donkey Kong Characters
-      foreach (var c in donkeyKongs)
+      // Display Street Fighter II Characters
+      foreach (var c in streetFighters)
       {
         Console.WriteLine(c.Display());
       }
     }
-    else if (choiceD == "2")
+    else if (choiceS == "2")
     {
-      // Add Donkey Kong Character
+      // Add Street Fighter II Character
       // Generate unique Id
-      DonkeyKong donkeyKong = new()
+      StreetFighter streetFighter = new()
       {
-        Id = donkeyKongs.Count == 0 ? 1 : donkeyKongs.Max(c => c.Id) + 1
+        Id = streetFighters.Count == 0 ? 1 : streetFighters.Max(c => c.Id) + 1
       };
-      InputCharacter(donkeyKong);
+      InputCharacter(streetFighter);
       // Add Character
-      donkeyKongs.Add(donkeyKong);
-      File.WriteAllText(donkeyKongFileName, JsonSerializer.Serialize(donkeyKongs));
-      logger.Info($"Character added: {donkeyKong.Name}");
+      streetFighters.Add(streetFighter);
+      File.WriteAllText(streetFighterFileName, JsonSerializer.Serialize(streetFighters));
+      logger.Info($"Character added: {streetFighter.Name}");
     }
-    else if (choiceD == "3")
+    else if (choiceS == "3")
     {
-      // Remove Donkey Kong Character
+      // Remove Street Fighter II Character
       Console.WriteLine("Enter the Id of the character to remove:");
       if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
       {
-        DonkeyKong? character = donkeyKongs.FirstOrDefault(c => c.Id == Id);
+        StreetFighter? character = streetFighters.FirstOrDefault(c => c.Id == Id);
         if (character == null)
         {
           logger.Error($"Character Id {Id} not found");
         }
         else
         {
-          donkeyKongs.Remove(character);
-          // serialize list<marioCharacter> into json file
-          File.WriteAllText(donkeyKongFileName, JsonSerializer.Serialize(donkeyKongs));
+          streetFighters.Remove(character);
+          // serialize list<StreetFighter2Character> into json file
+          File.WriteAllText(streetFighterFileName, JsonSerializer.Serialize(streetFighters));
           logger.Info($"Character Id {Id} removed");
         }
       }
@@ -241,7 +241,7 @@ do
         logger.Error("Invalid Id");
       }
     }
-    else if (string.IsNullOrEmpty(choiceD))
+    else if (string.IsNullOrEmpty(choiceS))
     {
       break;
     }
@@ -249,9 +249,7 @@ do
     {
       logger.Info("Invalid choice");
     }
-  }
-  
-  else if (string.IsNullOrEmpty(choice))
+  } else if (string.IsNullOrEmpty(choice))
       {
         break;
       }

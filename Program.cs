@@ -202,6 +202,24 @@ do
     else if (choiceD == "4")
     {
       // Edit Donkey Kong Character
+      Console.WriteLine("Enter the Id of the character to edit:");
+      if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+      {
+        DonkeyKong? character = donkeyKongs.FirstOrDefault(c => c.Id == Id);
+        if (character == null)
+        {
+          logger.Error($"Character Id {Id} not found");
+        }
+        else
+        {
+          donkeyKongs.Remove(character);
+          InputCharacter(character);
+          donkeyKongs.Add(character);
+          // serialize list<marioCharacter> into json file
+          File.WriteAllText(donkeyKongFileName, JsonSerializer.Serialize(donkeyKongs));
+          logger.Info($"Character Id {Id} edited");
+        }
+      }
     }
     else if (string.IsNullOrEmpty(choiceD))
     {

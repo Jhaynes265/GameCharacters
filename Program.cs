@@ -56,6 +56,7 @@ do
     Console.WriteLine("1) Display Mario Characters");
     Console.WriteLine("2) Add Mario Character");
     Console.WriteLine("3) Remove Mario Character");
+    Console.WriteLine("4) Edit Mario Character");
     Console.WriteLine("Enter to quit");
 
     // input selection
@@ -107,6 +108,10 @@ do
       {
         logger.Error("Invalid Id");
       }
+    }
+    else if (choiceM == "4")
+    {
+      // Edit Mario Character
     }
     else if (string.IsNullOrEmpty(choiceM))
     {

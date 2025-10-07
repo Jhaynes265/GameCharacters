@@ -112,6 +112,24 @@ do
     else if (choiceM == "4")
     {
       // Edit Mario Character
+      Console.WriteLine("Enter the Id of the character to edit:");
+      if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+      {
+        Mario? character = marios.FirstOrDefault(c => c.Id == Id);
+        if (character == null)
+        {
+          logger.Error($"Character Id {Id} not found");
+        }
+        else
+        {
+          marios.Remove(character);
+          InputCharacter(character);
+          marios.Add(character);
+          // serialize list<marioCharacter> into json file
+          File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+          logger.Info($"Character Id {Id} edited");
+        }
+      }
     }
     else if (string.IsNullOrEmpty(choiceM))
     {

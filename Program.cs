@@ -146,6 +146,7 @@ do
     Console.WriteLine("1) Display Donkey Kong Characters");
     Console.WriteLine("2) Add Donkey Kong Character");
     Console.WriteLine("3) Remove Donkey Kong Character");
+    Console.WriteLine("4) Edit Donkey Kong Character");
     Console.WriteLine("Enter to quit");
 
     // input selection
@@ -197,6 +198,10 @@ do
       {
         logger.Error("Invalid Id");
       }
+    }
+    else if (choiceD == "4")
+    {
+      // Edit Donkey Kong Character
     }
     else if (string.IsNullOrEmpty(choiceD))
     {

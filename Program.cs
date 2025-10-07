@@ -235,6 +235,7 @@ do
     Console.WriteLine("1) Display Street Fighter II Characters");
     Console.WriteLine("2) Add Street Fighter II  Character");
     Console.WriteLine("3) Remove Street Fighter II Character");
+    Console.WriteLine("4) Edit Street Fighter II Character");
     Console.WriteLine("Enter to quit");
 
     // input selection
@@ -286,6 +287,10 @@ do
       {
         logger.Error("Invalid Id");
       }
+    }
+    else if (choiceS == "4")
+    {
+      // Edit Street Fighter II Character
     }
     else if (string.IsNullOrEmpty(choiceS))
     {

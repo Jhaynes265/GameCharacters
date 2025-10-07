@@ -291,6 +291,24 @@ do
     else if (choiceS == "4")
     {
       // Edit Street Fighter II Character
+      Console.WriteLine("Enter the Id of the character to edit:");
+      if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+      {
+        StreetFighter? character = streetFighters.FirstOrDefault(c => c.Id == Id);
+        if (character == null)
+        {
+          logger.Error($"Character Id {Id} not found");
+        }
+        else
+        {
+          streetFighters.Remove(character);
+          InputCharacter(character);
+          streetFighters.Add(character);
+          // serialize list<marioCharacter> into json file
+          File.WriteAllText(streetFighterFileName, JsonSerializer.Serialize(streetFighters));
+          logger.Info($"Character Id {Id} edited");
+        }
+      }
     }
     else if (string.IsNullOrEmpty(choiceS))
     {
